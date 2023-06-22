@@ -1,13 +1,13 @@
-from AddressBook import *
-from info import ConsolPrinter
+from AddressBook import AddressBook, Name, Phone, Birthday, Email, Status, Note, Record
+from info import Formator
 
 
-class Bot(ConsolPrinter):
+class Bot(Formator):
     def __init__(self):
         self.book = AddressBook()
         
-    def print_func(text):
-        return text
+    def output_info(self, value):
+        return value
 
     def handle(self, action):
         if action == 'add':
@@ -18,10 +18,9 @@ class Bot(ConsolPrinter):
             status = Status().value.strip()
             note = Note(input("Note: ")).value
             record = Record(name, phones, birth, email, status, note)
-            return self.book.add(record)
+            return self.output_info(self.book.add(record))
         elif action == 'search':
-            print(Bot.print_func(
-                "There are following categories: \nName \nPhones \nBirthday \nEmail \nStatus \nNote"))
+            print(self.output_info("There are following categories: \nName \nPhones \nBirthday \nEmail \nStatus \nNote"))
             category = input('Search category: ')
             pattern = input('Search pattern: ')
             result = (self.book.search(pattern, category))
@@ -29,26 +28,26 @@ class Bot(ConsolPrinter):
                 if account['birthday']:
                     birth = account['birthday'].strftime("%d/%m/%Y")
                     result = "_" * 50 + "\n" + f"Name: {account['name']} \nPhones: {', '.join(account['phones'])} \nBirthday: {birth} \nEmail: {account['email']} \nStatus: {account['status']} \nNote: {account['note']}\n" + "_" * 50
-                    print(Bot.print_func(result))
+                    print(self.output_info(result))
         elif action == 'edit':
             contact_name = input('Contact name: ')
             parameter = input('Which parameter to edit(name, phones, birthday, status, email, note): ').strip()
             new_value = input("New Value: ")
-            return self.book.edit(contact_name, parameter, new_value)
+            return self.output_info(self.book.edit(contact_name, parameter, new_value))
         elif action == 'remove':
             pattern = input("Remove (contact name or phone): ")
-            return self.book.remove(pattern)
+            return self.output_info(self.book.remove(pattern))
         elif action == 'save':
             file_name = input("File name: ")
-            return self.book.save(file_name)
+            return self.output_info(self.book.save(file_name))
         elif action == 'load':
             file_name = input("File name: ")
-            return self.book.load(file_name)
+            return self.output_info(self.book.load(file_name))
         elif action == 'congratulate':
-            print(Bot.print_func(self.book.congratulate()))
+            print(self.book.congratulate())
         elif action == 'view':
-            print(Bot.print_func(self.book))
+            print(self.book)
         elif action == 'exit':
             pass
         else:
-            print(Bot.print_func("There is no such command!"))
+            print("There is no such command!")

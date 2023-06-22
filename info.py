@@ -3,13 +3,13 @@ import re
 from abc import ABC, abstractmethod
 
 
-class ConsolPrinter(ABC):
+class Formator(ABC):
     @abstractmethod
-    def print_func(text):
-        return text
+    def output_info(self):
+        pass
 
 
-class Record():
+class Record(Formator):
 
     def __init__(self, name, phones='', birthday='', email='', status='', note=''):
 
@@ -19,6 +19,9 @@ class Record():
         self.email = email
         self.status = status
         self.note = note
+        
+    def output_info(self, value):
+        return value
 
     def days_to_birthday(self):
         current_datetime = dt.now()
@@ -28,7 +31,7 @@ class Record():
         else:
             self.birthday = self.birthday.replace(year=current_datetime.year + 1)
             result = self.birthday - current_datetime
-        return result.days
+        return self.output_info(result.days)
 
 
 class Field(ABC):
@@ -46,10 +49,7 @@ class Name(Field):
         return self.value
 
 
-class Phone(Field, ConsolPrinter):
-    
-    def print_func(text):
-        return text
+class Phone(Field):
 
     def __init__(self, value=''):
         while True:
@@ -65,7 +65,8 @@ class Phone(Field, ConsolPrinter):
                     else:
                         raise ValueError
             except ValueError:
-                print(Phone.print_func('Incorrect phone number format! Please provide correct phone number format.'))
+                print('Incorrect phone number format! Please provide correct phone number format.')
+                break
             else:
                 break
 
@@ -73,10 +74,7 @@ class Phone(Field, ConsolPrinter):
         return self.value
 
 
-class Birthday(Field, ConsolPrinter):
-    
-    def print_func(text):
-        return text
+class Birthday(Field):
 
     def __init__(self, value=''):
         while True:
@@ -93,16 +91,13 @@ class Birthday(Field, ConsolPrinter):
                 else:
                     raise ValueError
             except ValueError:
-                print(Birthday.print_func('Incorrect date! Please provide correct date format.'))
+                print('Incorrect date! Please provide correct date format.')
 
     def __getitem__(self):
         return self.value
 
 
-class Email(Field, ConsolPrinter):
-    
-    def print_func(text):
-        return text
+class Email(Field):
 
     def __init__(self, value=''):
         while True:
@@ -117,16 +112,13 @@ class Email(Field, ConsolPrinter):
                 else:
                     raise ValueError
             except ValueError:
-                print(Email.print_func('Incorrect email! Please provide correct email.'))
+                print('Incorrect email! Please provide correct email.')
 
     def __getitem__(self):
         return self.value
 
 
-class Status(Field, ConsolPrinter):
-    
-    def print_func(text):
-        return text
+class Status(Field):
 
     def __init__(self, value=''):
         while True:
@@ -141,7 +133,7 @@ class Status(Field, ConsolPrinter):
                 else:
                     raise ValueError
             except ValueError:
-                print(Status.print_func('There is no such status!'))
+                print('There is no such status!')
 
     def __getitem__(self):
         return self.value

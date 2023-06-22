@@ -1,18 +1,18 @@
 from datetime import datetime as dt, timedelta
 from collections import UserList
 import pickle
-from info import *
 import os
+from info import Birthday, Email, Status, Phone, Name, Note, Record
+from info import Formator
 
 
-class AddressBook(UserList, ConsolPrinter):
-    
-    def print_func(text):
-        return text
-    
+class AddressBook(UserList, Formator):
     def __init__(self):
         self.data = []
         self.counter = -1
+        
+    def output_info(self, value):
+        return value
 
     def __str__(self):
         result = []
@@ -88,7 +88,7 @@ class AddressBook(UserList, ConsolPrinter):
             self.log("Addressbook has been loaded!")
         else:
             self.log('Adressbook has been created!')
-        return self.data
+        return self.output_info(self.data)
 
     def search(self, pattern, category):
         result = []
@@ -105,8 +105,8 @@ class AddressBook(UserList, ConsolPrinter):
             elif account[category_new].lower().replace(' ', '') == pattern_new:
                 result.append(account)
         if not result:
-            print(AddressBook.print_func('There is no such contact in address book!'))
-        return result
+            print('There is no such contact in address book!')
+        return self.output_info(result)
 
     def edit(self, contact_name, parameter, new_value):
         names = []
@@ -132,9 +132,9 @@ class AddressBook(UserList, ConsolPrinter):
             if contact_name not in names:
                 raise NameError
         except ValueError:
-            print(AddressBook.print_func('Incorrect parameter! Please provide correct parameter'))
+            print('Incorrect parameter! Please provide correct parameter')
         except NameError:
-                  print(AddressBook.print_func('There is no such contact in address book!'))
+            print('There is no such contact in address book!')
         else:
             self.log(f"Contact {contact_name} has been edited!")
             return True
@@ -150,7 +150,7 @@ class AddressBook(UserList, ConsolPrinter):
             '''if pattern in account['phones']:
                         account['phones'].remove(pattern)
                         self.log.log(f"Phone number of {account['name']} has been removed!")'''
-        return flag
+        return self.output_info(flag)
 
     def __get_current_week(self):
         now = dt.now()
@@ -178,5 +178,5 @@ class AddressBook(UserList, ConsolPrinter):
         for key, value in congratulate.items():
             if len(value):
                 result.append(f"{key}: {' '.join(value)}")
-        return '_' * 50 + '\n' + '\n'.join(result) + '\n' + '_' * 50
+        return self.output_info('_' * 50 + '\n' + '\n'.join(result) + '\n' + '_' * 50)
 
