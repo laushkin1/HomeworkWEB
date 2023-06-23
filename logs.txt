@@ -100,3 +100,28 @@
 [12:07:18] Addressbook has been saved!
 [12:07:30] Addressbook has been saved!
 [12:07:37] Addressbook has been loaded!
+[14:32:29] Addressbook has been loaded!
+[14:33:40] Contact Ivan Laushkin has been added.
+[14:33:40] Addressbook has been saved!
+[14:38:50] Contact Danil Shevelyov has been added.
+[14:38:50] Addressbook has been saved!
+[14:45:59] Addressbook has been loaded!
+[14:46:01] Addressbook has been loaded!
+[14:46:43] Addressbook has been loaded!
+[15:17:00] Addressbook has been loaded!
+[15:17:15] Addressbook has been loaded!
+[15:17:53] Addressbook has been loaded!
+[15:18:43] Addressbook has been loaded!
+[15:19:58] Addressbook has been loaded!
+[15:20:43] Addressbook has been loaded!
+[15:21:52] Addressbook has been loaded!
+[15:24:50] Addressbook has been loaded!
+[15:37:30] Addressbook has been loaded!
+[15:38:52] Addressbook has been saved!
+[15:41:49] Addressbook has been loaded!
+[15:41:56] Addressbook has been saved!
+[15:42:06] Contact Ivan Laushkin has been removed!
+[15:42:06] Addressbook has been saved!
+[15:42:18] Addressbook has been saved!
+[15:42:36] Contact Danil Shevelyov has been removed!
+[15:42:36] Addressbook has been saved!

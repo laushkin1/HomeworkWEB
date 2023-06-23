@@ -3,13 +3,7 @@ import re
 from abc import ABC, abstractmethod
 
 
-class Formator(ABC):
-    @abstractmethod
-    def output_info(self):
-        pass
-
-
-class Record(Formator):
+class Record:
 
     def __init__(self, name, phones='', birthday='', email='', status='', note=''):
 
@@ -20,8 +14,6 @@ class Record(Formator):
         self.status = status
         self.note = note
         
-    def output_info(self, value):
-        return value
 
     def days_to_birthday(self):
         current_datetime = dt.now()
@@ -31,7 +23,7 @@ class Record(Formator):
         else:
             self.birthday = self.birthday.replace(year=current_datetime.year + 1)
             result = self.birthday - current_datetime
-        return self.output_info(result.days)
+        return result.days
 
 
 class Field(ABC):

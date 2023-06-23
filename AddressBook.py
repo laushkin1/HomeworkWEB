@@ -3,7 +3,13 @@ from collections import UserList
 import pickle
 import os
 from info import Birthday, Email, Status, Phone, Name, Note, Record
-from info import Formator
+from abc import ABC, abstractmethod
+
+
+class Formator(ABC):
+    @abstractmethod
+    def output_info(self):
+        pass
 
 
 class AddressBook(UserList, Formator):
@@ -11,8 +17,11 @@ class AddressBook(UserList, Formator):
         self.data = []
         self.counter = -1
         
-    def output_info(self, value):
-        return value
+    def output_info(self, func):
+        if func == 'view':
+            return self.__str__()
+        elif func == 'congratulate':
+            return self.congratulate()
 
     def __str__(self):
         result = []
@@ -88,7 +97,7 @@ class AddressBook(UserList, Formator):
             self.log("Addressbook has been loaded!")
         else:
             self.log('Adressbook has been created!')
-        return self.output_info(self.data)
+        return self.data
 
     def search(self, pattern, category):
         result = []
@@ -106,7 +115,7 @@ class AddressBook(UserList, Formator):
                 result.append(account)
         if not result:
             print('There is no such contact in address book!')
-        return self.output_info(result)
+        return result
 
     def edit(self, contact_name, parameter, new_value):
         names = []
@@ -150,7 +159,7 @@ class AddressBook(UserList, Formator):
             '''if pattern in account['phones']:
                         account['phones'].remove(pattern)
                         self.log.log(f"Phone number of {account['name']} has been removed!")'''
-        return self.output_info(flag)
+        return flag
 
     def __get_current_week(self):
         now = dt.now()
@@ -178,5 +187,5 @@ class AddressBook(UserList, Formator):
         for key, value in congratulate.items():
             if len(value):
                 result.append(f"{key}: {' '.join(value)}")
-        return self.output_info('_' * 50 + '\n' + '\n'.join(result) + '\n' + '_' * 50)
+        return '_' * 50 + '\n' + '\n'.join(result) + '\n' + '_' * 50
 
